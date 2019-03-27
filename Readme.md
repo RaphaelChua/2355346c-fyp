@@ -2,7 +2,7 @@
 ##### Edge Computing with Blockchain for Secure Logistics Application
 
 
-Name: Raphael Chua Liang Hui
+Name: Raphael Chua Liang Hui <br />
 GUID: 2355346C
 
 #### Environment
@@ -41,7 +41,7 @@ To stop the blockchain application
 $ sh dockerstop.sh
 ```
 
-Frontend: http://localhost:8080
+Frontend: http://localhost:8080   <br />
 Grafana: http://localhost:3000
 
 
