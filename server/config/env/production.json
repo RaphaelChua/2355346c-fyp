@@ -1,0 +1,14 @@
+{
+    "SERVER_NAME":"0.0.0.0",
+    "SERVER_PORT":"5000",
+
+    "SETH_RPC_PORT" :"3030",
+    "SETH_RPC_HOST":"seth-rpc",
+
+    "SAWTOOTH_RESTAPI":"8008",
+    "SAWTOOTH_NETWORK_HOST":"rest-api",
+    "SAWTOOTH_NETWORK_ID":"*",
+    "SAWTOOTH_NETWORK_PORT":"9545",
+
+    "PYTHON_PATH":"/usr/bin/python"
+}

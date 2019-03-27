@@ -1,0 +1,8 @@
+{
+    "name":"DS_PROMETHEUS",
+    "type":"prometheus",
+    "url":"http://70.0.0.57:9090",
+    "access":"direct",
+    "database":"metrics",
+    "basicauth":false
+  }

@@ -1,0 +1,616 @@
+# Copyright 2017 Intel Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# ------------------------------------------------------------------------------
+
+version: "2.1"
+
+
+
+volumes:
+  shared:
+  nginxshared:
+  sawtooth:
+  sawtooth2:
+  contract_keys:
+  contract_keys2:
+  cassandra:
+  prometheus:
+
+
+services:
+ 
+
+#################### first node/genesis node ##############################
+
+  seth-cli:
+    build:
+      context: .
+      dockerfile: ./cli/Dockerfile
+      args:
+        - http_proxy
+        - https_proxy
+        - no_proxy
+    image: hyperledger/sawtooth-seth-cli:latest
+    container_name: seth-cli
+    volumes:
+      - ./contracts:/project/sawtooth-seth/contracts
+      - sawtooth:/root/.sawtooth
+      - ./:/project/sawtooth-core
+    depends_on:
+      - validator
+      - rest-api
+      - seth-rpc
+    working_dir: /project/sawtooth-seth
+    entrypoint: |
+      bash -c "
+        seth config init --url http://seth-rpc:3030
+        tail -f /dev/null "
+
+
+  seth-cli-go:
+    restart: always
+    build:
+      context: .
+      dockerfile: ./cli-go/Dockerfile
+      args:
+        - http_proxy
+        - https_proxy
+        - no_proxy
+    image: sawtooth-seth-cli-go:latest
+    container_name: seth-cli-go
+    volumes:
+      - ./contracts:/project/sawtooth-seth/contracts
+      - ./openssl_keys:/project/contract_keys
+      - sawtooth:/root/.sawtooth
+      - contract_keys:/project/alias
+      - ./:/project/sawtooth-core
+    depends_on:
+      - rest-api
+      - validator
+    working_dir: /project/sawtooth-seth
+    entrypoint: |
+      bash -c "
+        seth init -v http://rest-api:8008 &&
+        cd /project/contract_keys &&
+        if [ ! -f /project/alias/sawtooth_account.txt ]; then
+          seth account import -v key-file1.pem toshiba1 &&
+          seth account create -v --nonce=0 --wait=120 toshiba1 &&
+          touch /project/alias/sawtooth_account.txt
+        fi;
+        if [ ! -f /root/.sawtooth/keys/root.priv ]; then
+        sawtooth keygen
+        fi;
+        tail -f /dev/null
+      "
+
+
+  seth-rpc:
+    build:
+      context: .
+      dockerfile: ./rpc/Dockerfile
+      args:
+        - http_proxy
+        - https_proxy
+        - no_proxy
+    image: hyperledger/sawtooth-seth-rpc:latest
+    container_name: seth-rpc
+    volumes:
+      - sawtooth:/root/.sawtooth
+    depends_on:
+      - validator
+      - seth-cli-go
+    expose:
+      - 3030
+    ports:
+      - "3030:3030"
+    command: |
+      bash -c "
+        seth-rpc -v --connect tcp://validator:4004 --bind 0.0.0.0:3030 --unlock toshiba1 "
+
+  seth-tp:
+    build:
+      context: .
+      dockerfile: ./processor/Dockerfile
+      args:
+        - http_proxy
+        - https_proxy
+        - no_proxy
+    image: hyperledger/sawtooth-seth-tp:latest
+    container_name: seth-tp
+    tty: true
+    stdin_open: true
+    depends_on:
+      - validator
+    volumes:
+      - ./:/project/sawtooth-core
+    command: |
+      bash -c "
+        seth-tp -vv \
+          -C tcp://validator:4004 "
+
+  settings-tp:
+    image: hyperledger/sawtooth-settings-tp:1.0
+    container_name: sawtooth-settings-tp-node1
+    expose:
+      - 4004
+    depends_on:
+      - validator
+    volumes:
+      - ./:/project/sawtooth-core
+    entrypoint: settings-tp -vv -C tcp://validator:4004
+
+  # block-info-tp:
+  #   image: hyperledger/sawtooth-block-info-tp:1.0
+  #   container_name: sawtooth-block-info-node1
+  #   depends_on:
+  #     - validator
+  #   volumes:
+  #     - ./:/project/sawtooth-core
+  #   command: block-info-tp -vv --connect tcp://validator:4004
+
+  validator:
+    image: hyperledger/sawtooth-validator:1.0
+    container_name: sawtooth-validator-node1
+    expose:
+      - 8800
+      - 4004
+      - 5050
+    # volumes:
+    #   - poet-shared:/poet-shared
+    ports:
+      - "8800:8800"
+    # start the validator with an empty genesis batch
+    entrypoint: |
+      bash -c "
+        if [ ! -f /etc/sawtooth/keys/validator.priv ]; then \
+          sawadm keygen; \
+        fi && \
+        if [ ! -f config-genesis.batch ]; then \
+          sawset genesis -k /etc/sawtooth/keys/validator.priv -o config-genesis.batch; \
+        fi && \
+        if [ ! -f config.batch ]; then \
+          sawset proposal create \
+            -k /etc/sawtooth/keys/validator.priv \
+            sawtooth.consensus.algorithm=poet \
+            sawtooth.poet.report_public_key_pem=\"$$(cat /etc/sawtooth/simulator_rk_pub.pem)\" \
+            sawtooth.poet.valid_enclave_measurements=$$(poet enclave measurement) \
+            sawtooth.poet.valid_enclave_basenames=$$(poet enclave basename) \
+            sawtooth.poet.initial_wait_time=30 \
+            sawtooth.poet.target_wait_time=15 \
+            sawtooth.publisher.max_batches_per_block=500 \
+            -o config.batch; \
+        fi && \
+        if [ ! -f poet_genesis.batch ]; then \
+          poet registration create -k /etc/sawtooth/keys/validator.priv -o poet_genesis.batch &&
+          sawadm genesis config-genesis.batch config.batch poet_genesis.batch; \
+        fi && \
+        if [ ! -f /root/.sawtooth/keys/my_key.priv ]; then \
+          sawtooth keygen my_key; \
+        fi &&  \
+        sawtooth-validator -vv \
+          --endpoint tcp://validator:8800 \
+          --bind component:tcp://eth0:4004 \
+          --bind network:tcp://eth0:8800 \
+          --bind consensus:tcp://eth0:5050 \
+          --minimum-peer-connectivity 1 \
+          --peering dynamic \
+          --network-auth trust \
+          --scheduler serial \
+          --opentsdb-url http://influxdb:8086 \
+          --opentsdb-db metrics
+      \"\""
+
+
+  rest-api:
+    image: hyperledger/sawtooth-rest-api:1.0
+    container_name: sawtooth-rest-api-node1
+    expose:
+      - 8008
+      - 4004
+    ports:
+      - "8008:8008"
+      - "4004:4004"
+    depends_on:
+      - validator
+    volumes:
+      - ./:/project/sawtooth-core
+    command:  |
+      bash -c "
+        sawtooth-rest-api \
+          --connect tcp://validator:4004 \
+          --bind rest-api:8008 \
+          --opentsdb-url http://influxdb:8086 \
+          --opentsdb-db metrics "
+          
+
+
+  poet-validator-registry-tp:
+      image: hyperledger/sawtooth-poet-validator-registry-tp:1.0
+      container_name: sawtooth-poet-validator-registry-tp
+      expose:
+        - 4004
+      volumes:
+      - ./:/project/sawtooth-core
+      depends_on:
+        - validator
+      command: poet-validator-registry-tp -C tcp://validator:4004
+
+
+
+
+#################### second node #############################
+
+  seth-cli2:
+    build:
+      context: .
+      dockerfile: ./cli/Dockerfile
+      args:
+        - ISOLATION_ID=latest
+        - http_proxy
+        - https_proxy
+        - no_proxy
+    image: hyperledger/sawtooth-seth-cli:latest
+    container_name: seth-cli2
+    volumes:
+      - ./contracts:/project/sawtooth-seth/contracts
+      - sawtooth2:/root/.sawtooth
+    depends_on:
+      - validator2
+      - rest-api
+      - seth-rpc2
+    working_dir: /project/sawtooth-seth
+    entrypoint: |
+      bash -c "
+        seth config init --url http://seth-rpc2:3030
+        tail -f /dev/null "
+
+
+  seth-cli-go2:
+    restart: always
+    build:
+      context: .
+      dockerfile: ./cli-go/Dockerfile
+      args:
+        - ISOLATION_ID=latest
+        - http_proxy
+        - https_proxy
+        - no_proxy
+    image: sawtooth-seth-cli-go:latest
+    container_name: seth-cli-go2
+    volumes:
+      - ./contracts:/project/sawtooth-seth/contracts
+      - ./openssl_keys:/project/contract_keys
+      - sawtooth2:/root/.sawtooth
+      - contract_keys2:/project/alias
+    depends_on:
+      - rest-api2
+      - validator2
+    working_dir: /project/sawtooth-seth
+    entrypoint: |
+      bash -c "
+        seth init -v http://rest-api2:8008 &&
+        cd /project/contract_keys &&
+        if [ ! -f /project/alias/sawtooth_account.txt ]; then
+          seth account import -v key-file2.pem toshiba2 &&
+          seth account create -v --nonce=0 --wait=120 toshiba2 &&
+          touch /project/alias/sawtooth_account.txt
+        fi;
+        if [ ! -f /root/.sawtooth/keys/root.priv ]; then
+        sawtooth keygen
+        fi;
+        tail -f /dev/null
+      "
+
+
+  seth-rpc2:
+    build:
+      context: .
+      dockerfile: ./rpc/Dockerfile
+      args:
+        - ISOLATION_ID=latest
+        - http_proxy
+        - https_proxy
+        - no_proxy
+    image: hyperledger/sawtooth-seth-rpc:latest
+    container_name: seth-rpc2
+    volumes:
+      - sawtooth2:/root/.sawtooth
+    depends_on:
+      - validator2
+      - seth-cli-go2
+    expose:
+      - 3030
+    ports:
+      - "3031:3030"
+    command: |
+      bash -c "
+        seth-rpc -v --connect tcp://validator2:4004 --bind 0.0.0.0:3030 --unlock toshiba2 "
+
+  seth-tp2:
+    build:
+      context: .
+      dockerfile: ./processor/Dockerfile
+      args:
+        - ISOLATION_ID=latest
+        - http_proxy
+        - https_proxy
+        - no_proxy
+    image: hyperledger/sawtooth-seth-tp:latest
+    container_name: seth-tp2
+    tty: true
+    stdin_open: true
+    depends_on:
+      - validator2
+    command: |
+      bash -c "
+        seth-tp -vv \
+          -C tcp://validator2:4004 "
+
+
+  settings-tp2:
+    image: hyperledger/sawtooth-settings-tp:1.0
+    container_name: sawtooth-settings-tp-node2
+    expose:
+      - 4004
+    depends_on:
+      - validator2
+    command: settings-tp -C tcp://validator2:4004
+
+  # block-info-tp2:
+  #   image: hyperledger/sawtooth-block-info-tp:1.0
+  #   container_name: sawtooth-block-info-node2
+  #   depends_on:
+  #     - validator2
+  #   command: block-info-tp -vv --connect tcp://validator2:4004
+
+  validator2:
+    image: hyperledger/sawtooth-validator:1.0
+    container_name: sawtooth-validator-node2
+    expose:
+      - 8800
+      - 4004
+      - 5050
+    ports:
+      - "8801:8800"
+    command: | 
+      bash -c "
+        sawadm keygen --force && \
+        sawtooth keygen my_key && \
+        sawtooth-validator -vv \
+          --endpoint tcp://validator2:8800 \
+          --bind component:tcp://eth0:4004 \
+          --bind network:tcp://eth0:8800 \
+          --bind consensus:tcp://eth0:5050 \
+          --peering dynamic \
+          --minimum-peer-connectivity 1 \
+          --seeds tcp://validator:8800 \
+          --network-auth trust \
+          --scheduler serial \
+          --opentsdb-url http://influxdb:8086 \
+          --opentsdb-db metrics "
+
+  rest-api2:
+    image: hyperledger/sawtooth-rest-api:1.0
+    container_name: sawtooth-rest-api-node2
+    expose:
+      - 8008
+      - 4004
+    ports:
+      - "8009:8008"
+      - "4005:4004"
+    depends_on:
+      - validator2
+    command:  |
+      bash -c "
+        sawtooth-rest-api \
+          --connect tcp://validator2:4004 \
+          --bind rest-api2:8008 \
+          --opentsdb-url http://influxdb:8086 \
+          --opentsdb-db metrics"
+
+  
+
+  poet-validator-registry-tp2:
+    image: hyperledger/sawtooth-poet-validator-registry-tp:1.0
+    container_name: sawtooth-poet-validator-registry-tp2
+    expose:
+      - 4004
+    depends_on:
+      - validator2
+    command: poet-validator-registry-tp -C tcp://validator2:4004
+
+
+  grafana:
+    build:
+      context: .
+      dockerfile: InputOutputProgram/grafana/sawtooth-stats-grafana
+      args:
+        - http-proxy
+        - https-proxy
+        - no_proxy
+    env_file: .env
+    depends_on:
+      - influxdb
+    links:
+      - prometheus:prometheus
+    ports:
+      - "3000:3000"
+    image: sawtooth-stats-grafana:latest
+    container_name: sawtooth-grafana
+
+  # grafana2:
+  #   build:
+  #     context: .
+  #     dockerfile: InputOutputProgram/grafana/sawtooth-stats-grafana-test
+  #     args:
+  #       - http-proxy
+  #       - https-proxy
+  #       - no_proxy
+  #   env_file: .env
+  #   depends_on:
+  #     - influxdb
+  #   links:
+  #     - prometheus:prometheus
+  #   ports:
+  #     - "3001:3000"
+  #   # image: sawtooth-stats-grafana2:latest
+  #   container_name: sawtooth-grafana2
+  #   # volumes:
+  #   #   - "./grafana/data:/var/lib/grafana/"
+  #   restart: always
+  
+  influxdb:
+    build:
+      context: ./InputOutputProgram/influxdb
+      dockerfile: sawtooth-stats-influxdb
+      args:
+        - http_proxy
+        - https_proxy
+        - no_proxy
+    ports:
+      - "8086:8086"
+    volumes:
+      - ./:/project/sawtooth-core
+    image: sawtooth-stats-influxdb:latest
+    container_name: sawtooth-influxdb
+
+  telegraf:
+    build:
+      context: ./InputOutputProgram/telegraf
+      # dockerfile: Dockerfile
+      dockerfile: Dockerfile.local
+    container_name: sawtooth-telegraf
+    links:
+      - influxdb
+    restart: always
+
+
+  client:
+    restart: always
+    container_name: t_client
+    build:
+      context: .
+      dockerfile: client/Dockerfile
+    links:
+      - server
+    depends_on:
+      - server
+    volumes:
+      - shared:/app
+      - nginxshared:/usr/share/nginx/html
+
+  server:
+    restart: always
+    container_name: t_server
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    ports:
+      - "5000:5000"
+    volumes:
+      - shared:/app
+      - "./video:/app/video"
+    expose:
+      - 5000
+
+  nginx:
+    restart: always
+    build: ./nginx
+    container_name: t_nginx
+    links:
+      - server
+    depends_on:
+      - server
+      - client
+    volumes:
+      - shared:/app
+      - nginxshared:/usr/share/nginx/html
+    ports:
+      - "8080:80"
+
+
+# # ##### CASSANDRA SERVER #######
+#   cassandradb:
+#     build:
+#       context: .
+#       dockerfile: CassandraDB/db/Dockerfile
+#     container_name: cassandra-db 
+#     ports:
+#       - "7400:7400"
+#       - "9042:9042"
+#       - "7000:7000"
+#     volumes:
+#       - "cassandra:/var/lib/cassandra"
+#     restart: always
+
+#   cassandradb2:
+#     build:
+#       context: .
+#       dockerfile: CassandraDB/db/Dockerfile
+#     container_name: cassandra-db 
+#     ports:
+#       - "7400:7400"
+#       - "9042:9042"
+#       - "7000:7000"
+#     links:
+#       - cassandradb
+#     volumes:
+#       - "cassandra:/var/lib/cassandra"
+#     restart: always
+
+#   cassandraserver:
+#     build:
+#       context: ./CassandraDB/dotnetServer
+#       dockerfile: Dockerfile
+#     container_name: cassandra-dotnet-server
+#     links:
+#       - cassandradb
+#     expose:
+#       - 6000
+#     ports:
+#       - "6000:6000"
+
+#   cassandraserverread:
+#     build:
+#       context: ./CassandraDB/dotnetReadServer
+#       dockerfile: Dockerfile
+#     container_name: cassandra-dotnet-server-read
+#     expose:
+#       - 6060
+#     links:
+#       - cassandradb
+#     ports:
+#       - "6060:6060"
+#     volumes:
+#       - "./videos:/app/video"
+
+  prometheus:
+    build:
+      context: .
+      dockerfile: InputOutputProgram/prometheus/Dockerfile
+    container_name: prometheus
+    # links:
+    #   - cassandradb
+    ports:
+      - "9090:9090"
+    volumes:
+      - prometheus:/prometheus
+    restart: always
+
+
+  node_exporter:
+    image: prom/node-exporter:v0.16.0
+    ports:
+      - "9100:9100"
+    restart: always

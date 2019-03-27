@@ -1,0 +1,429 @@
+{
+    "status": [
+        {
+            "temperature": "27.9",
+            "movement_detected": false,
+            "humidity": "52.5",
+            "pressure": "1010.5",
+            "environment_changed": false,
+            "datetime": "1547055922"
+        },
+        {
+            "temperature": "27.9",
+            "movement_detected": false,
+            "humidity": "52.0",
+            "pressure": "1010.5",
+            "environment_changed": false,
+            "datetime": "1547055927"
+        },
+        {
+            "temperature": "28.0",
+            "movement_detected": false,
+            "humidity": "51.9",
+            "pressure": "1010.5",
+            "environment_changed": false,
+            "datetime": "1547055932"
+        },
+        {
+            "temperature": "28.2",
+            "movement_detected": false,
+            "humidity": "51.2",
+            "pressure": "1010.5",
+            "environment_changed": false,
+            "datetime": "1547055937"
+        },
+        {
+            "temperature": "28.3",
+            "movement_detected": false,
+            "humidity": "52.0",
+            "pressure": "1010.4",
+            "environment_changed": false,
+            "datetime": "1547055942"
+        },
+        {
+            "temperature": "28.3",
+            "movement_detected": false,
+            "humidity": "52.1",
+            "pressure": "1010.4",
+            "environment_changed": true,
+            "datetime": "1547055947"
+        },
+        {
+            "temperature": "28.5",
+            "movement_detected": false,
+            "humidity": "51.6",
+            "pressure": "1010.4",
+            "environment_changed": true,
+            "datetime": "1547055952"
+        },
+        {
+            "temperature": "28.5",
+            "movement_detected": true,
+            "humidity": "51.9",
+            "pressure": "1010.4",
+            "environment_changed": true,
+            "datetime": "1547055957"
+        },
+        {
+            "temperature": "28.5",
+            "movement_detected": true,
+            "humidity": "51.1",
+            "pressure": "1010.4",
+            "environment_changed": true,
+            "datetime": "1547055962"
+        },
+        {
+            "temperature": "28.6",
+            "movement_detected": true,
+            "humidity": "50.3",
+            "pressure": "1010.4",
+            "environment_changed": true,
+            "datetime": "1547055967"
+        },
+        {
+            "temperature": "28.7",
+            "movement_detected": true,
+            "humidity": "50.3",
+            "pressure": "1010.4",
+            "environment_changed": true,
+            "datetime": "1547055972"
+        },
+        {
+            "temperature": "28.7",
+            "movement_detected": true,
+            "humidity": "50.5",
+            "pressure": "1010.4",
+            "environment_changed": true,
+            "datetime": "1547055977"
+        },
+        {
+            "temperature": "28.9",
+            "movement_detected": true,
+            "humidity": "49.7",
+            "pressure": "1010.4",
+            "environment_changed": true,
+            "datetime": "1547055982"
+        },
+        {
+            "temperature": "28.8",
+            "movement_detected": true,
+            "humidity": "49.9",
+            "pressure": "1010.4",
+            "environment_changed": true,
+            "datetime": "1547055987"
+        },
+        {
+            "temperature": "28.9",
+            "movement_detected": true,
+            "humidity": "49.8",
+            "pressure": "1010.4",
+            "environment_changed": true,
+            "datetime": "1547055992"
+        },
+        {
+            "temperature": "29.0",
+            "movement_detected": true,
+            "humidity": "49.4",
+            "pressure": "1010.4",
+            "environment_changed": true,
+            "datetime": "1547055997"
+        },
+        {
+            "temperature": "29.1",
+            "movement_detected": true,
+            "humidity": "49.1",
+            "pressure": "1010.4",
+            "environment_changed": true,
+            "datetime": "1547056002"
+        },
+        {
+            "temperature": "29.0",
+            "movement_detected": true,
+            "humidity": "48.8",
+            "pressure": "1010.4",
+            "environment_changed": true,
+            "datetime": "1547056007"
+        },
+        {
+            "temperature": "29.1",
+            "movement_detected": true,
+            "humidity": "49.0",
+            "pressure": "1010.3",
+            "environment_changed": true,
+            "datetime": "1547056012"
+        },
+        {
+            "temperature": "29.1",
+            "movement_detected": true,
+            "humidity": "48.8",
+            "pressure": "1010.4",
+            "environment_changed": true,
+            "datetime": "1547056017"
+        },
+        {
+            "temperature": "29.1",
+            "movement_detected": true,
+            "humidity": "48.6",
+            "pressure": "1010.3",
+            "environment_changed": true,
+            "datetime": "1547056022"
+        },
+        {
+            "temperature": "29.3",
+            "movement_detected": true,
+            "humidity": "48.4",
+            "pressure": "1010.3",
+            "environment_changed": true,
+            "datetime": "1547056027"
+        },
+        {
+            "temperature": "29.3",
+            "movement_detected": true,
+            "humidity": "48.3",
+            "pressure": "1010.3",
+            "environment_changed": true,
+            "datetime": "1547056032"
+        },
+        {
+            "temperature": "29.4",
+            "movement_detected": true,
+            "humidity": "48.5",
+            "pressure": "1010.4",
+            "environment_changed": true,
+            "datetime": "1547056037"
+        },
+        {
+            "temperature": "29.4",
+            "movement_detected": true,
+            "humidity": "50.7",
+            "pressure": "1010.3",
+            "environment_changed": true,
+            "datetime": "1547056042"
+        },
+        {
+            "temperature": "29.4",
+            "movement_detected": true,
+            "humidity": "48.1",
+            "pressure": "1010.4",
+            "environment_changed": true,
+            "datetime": "1547056047"
+        },
+        {
+            "temperature": "29.5",
+            "movement_detected": true,
+            "humidity": "47.9",
+            "pressure": "1010.4",
+            "environment_changed": true,
+            "datetime": "1547056052"
+        },
+        {
+            "temperature": "29.6",
+            "movement_detected": true,
+            "humidity": "47.7",
+            "pressure": "1010.3",
+            "environment_changed": true,
+            "datetime": "1547056057"
+        },
+        {
+            "temperature": "29.6",
+            "movement_detected": true,
+            "humidity": "47.5",
+            "pressure": "1010.3",
+            "environment_changed": true,
+            "datetime": "1547056062"
+        },
+        {
+            "temperature": "29.6",
+            "movement_detected": true,
+            "humidity": "47.2",
+            "pressure": "1010.4",
+            "environment_changed": true,
+            "datetime": "1547056067"
+        },
+        {
+            "temperature": "29.8",
+            "movement_detected": true,
+            "humidity": "46.8",
+            "pressure": "1010.3",
+            "environment_changed": true,
+            "datetime": "1547056072"
+        },
+        {
+            "temperature": "29.8",
+            "movement_detected": true,
+            "humidity": "47.5",
+            "pressure": "1010.3",
+            "environment_changed": true,
+            "datetime": "1547056077"
+        },
+        {
+            "temperature": "29.7",
+            "movement_detected": true,
+            "humidity": "47.1",
+            "pressure": "1010.3",
+            "environment_changed": true,
+            "datetime": "1547056082"
+        },
+        {
+            "temperature": "29.9",
+            "movement_detected": true,
+            "humidity": "47.5",
+            "pressure": "1010.3",
+            "environment_changed": true,
+            "datetime": "1547056087"
+        },
+        {
+            "temperature": "30.0",
+            "movement_detected": true,
+            "humidity": "47.5",
+            "pressure": "1010.3",
+            "environment_changed": true,
+            "datetime": "1547056092"
+        },
+        {
+            "temperature": "30.0",
+            "movement_detected": true,
+            "humidity": "46.9",
+            "pressure": "1010.3",
+            "environment_changed": true,
+            "datetime": "1547056097"
+        },
+        {
+            "temperature": "30.0",
+            "movement_detected": true,
+            "humidity": "46.1",
+            "pressure": "1010.3",
+            "environment_changed": true,
+            "datetime": "1547056102"
+        },
+        {
+            "temperature": "30.0",
+            "movement_detected": true,
+            "humidity": "46.9",
+            "pressure": "1010.3",
+            "environment_changed": true,
+            "datetime": "1547056107"
+        },
+        {
+            "temperature": "30.1",
+            "movement_detected": true,
+            "humidity": "46.4",
+            "pressure": "1010.3",
+            "environment_changed": true,
+            "datetime": "1547056112"
+        },
+        {
+            "temperature": "30.1",
+            "movement_detected": true,
+            "humidity": "46.1",
+            "pressure": "1010.3",
+            "environment_changed": true,
+            "datetime": "1547056117"
+        },
+        {
+            "temperature": "30.2",
+            "movement_detected": true,
+            "humidity": "46.3",
+            "pressure": "1010.3",
+            "environment_changed": true,
+            "datetime": "1547056122"
+        },
+        {
+            "temperature": "30.3",
+            "movement_detected": true,
+            "humidity": "46.2",
+            "pressure": "1010.3",
+            "environment_changed": true,
+            "datetime": "1547056127"
+        },
+        {
+            "temperature": "30.3",
+            "movement_detected": true,
+            "humidity": "46.3",
+            "pressure": "1010.3",
+            "environment_changed": true,
+            "datetime": "1547056132"
+        },
+        {
+            "temperature": "30.3",
+            "movement_detected": true,
+            "humidity": "46.4",
+            "pressure": "1010.3",
+            "environment_changed": true,
+            "datetime": "1547056137"
+        },
+        {
+            "temperature": "30.4",
+            "movement_detected": true,
+            "humidity": "46.4",
+            "pressure": "1010.3",
+            "environment_changed": true,
+            "datetime": "1547056142"
+        },
+        {
+            "temperature": "30.4",
+            "movement_detected": true,
+            "humidity": "46.2",
+            "pressure": "1010.3",
+            "environment_changed": true,
+            "datetime": "1547056147"
+        },
+        {
+            "temperature": "30.4",
+            "movement_detected": true,
+            "humidity": "45.9",
+            "pressure": "1010.3",
+            "environment_changed": true,
+            "datetime": "1547056153"
+        },
+        {
+            "temperature": "30.6",
+            "movement_detected": true,
+            "humidity": "46.0",
+            "pressure": "1010.3",
+            "environment_changed": true,
+            "datetime": "1547056158"
+        },
+        {
+            "temperature": "30.5",
+            "movement_detected": true,
+            "humidity": "45.8",
+            "pressure": "1010.2",
+            "environment_changed": true,
+            "datetime": "1547056163"
+        }
+    ],
+    "env_status": [
+        {
+            "temperature": "28.3",
+            "long": "103.912190",
+            "datetime": "1547055942",
+            "pressure": "1010.4",
+            "lat": "1.328851",
+            "humidity": "52.0"
+        },
+        {
+            "temperature": "28.3",
+            "long": "103.954807",
+            "datetime": "1547055947",
+            "pressure": "1010.4",
+            "lat": "1.348151",
+            "humidity": "52.1"
+        }
+    ],
+    "movement_status": [
+        {
+            "lat": "1.328851",
+            "long": "103.912190",
+            "datetime": "1547055957"
+        },
+        {
+            "lat": "1.348151",
+            "long": "103.954807",
+            "datetime": "1547055962"
+        }
+    ],
+    "video_filename_encodeID": "TVRJeE1qRTQ=",
+    "remarks": "Changi to Braddell",
+    "video_hashID": "0ed3b0f0531542fa8ebe1b0c3852fde70495ae84f73f8c48000276dc72035a73"
+}

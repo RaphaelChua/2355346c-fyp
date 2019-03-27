@@ -1,0 +1,75 @@
+2018-10-15 05:15:24:918 00007f5d87aff700 iclsClient:[INF] [N/A] iclsClient - Version: 1.45.449.12
+2018-10-15 05:15:24:918 00007f5d87aff700 iclsClient:InitializeModuleInfoSingleton: [DBG] [N/A] Checking if another function is in progress.
+2018-10-15 05:15:24:918 00007f5d87aff700 iclsClient:InitializeModuleInfoSingleton: [DBG] [N/A] Lock acquired. Executing function.
+2018-10-15 05:15:24:918 00007f5d87aff700 iclsClient:[INF] [N/A] Creating default config
+2018-10-15 05:15:24:918 00007f5d87aff700 iclsClient:ConfigMgmt constructor entry
+2018-10-15 05:15:24:918 00007f5d87aff700 iclsClient:[DBG] [0x560c20f15e50] Starting reading config file: /opt/Intel/iclsClient//iclsProxy.conf
+2018-10-15 05:15:24:918 00007f5d87aff700 iclsClient:[INF] [0x560c20f15e50] IasName=https://ias.intel.com
+2018-10-15 05:15:24:918 00007f5d87aff700 iclsClient:[INF] [0x560c20f15e50] IasPortNum=443
+2018-10-15 05:15:24:918 00007f5d87aff700 iclsClient:[INF] [0x560c20f15e50] ProxyServer=
+2018-10-15 05:15:24:918 00007f5d87aff700 iclsClient:[INF] [0x560c20f15e50] ProxyPort=0
+2018-10-15 05:15:24:918 00007f5d87aff700 iclsClient:[INF] [0x560c20f15e50] CaCertFilePath=cacert.pem
+2018-10-15 05:15:24:918 00007f5d87aff700 iclsClient:[INF] [0x560c20f15e50] MessageTimeout=15
+2018-10-15 05:15:24:918 00007f5d87aff700 iclsClient:[INF] [0x560c20f15e50] ConnectionAttempts=3
+2018-10-15 05:15:24:918 00007f5d87aff700 iclsClient:[INF] [0x560c20f15e50] Rpvk=-----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApbEZkucttWPYZyhpNtYwkV5W51IloqndNxMCeb93U2T0sT+T2kUY3rlaCNJLcwjeuR17URu3I9R/c13jY1pWqgg73OM69cYfrN0n08waWuaa03eR/WI7+js7fRm48+9jQe5Gyc/V9PtvM8xxMAv7e1nA6Zt4ZsDFOfpVZwlAy1fKlErudGMYiVFF+/1mEWIAunqeH0Lj8/R4cS9GO90cb51q9H74zb7Pi2GwxF4udtcQDdukQvK9mEn+cnZuNYl8lEdHuruZLoiCmHBHZF0E+GvvlP4T26+Ljx3QvAy1McWSw+my5HTVWUw0bxjdTaJUmtHpthnc1eKvGn4TMq1JCwIDAM5H-----END PUBLIC KEY-----
+2018-10-15 05:15:24:918 00007f5d87aff700 iclsClient:[INF] [0x560c20f15e50] ProxyFileLogName=iclsProxy.log
+2018-10-15 05:15:24:918 00007f5d87aff700 iclsClient:[INF] [0x560c20f15e50] ProxyFileLogLevel=1
+2018-10-15 05:15:24:918 00007f5d87aff700 iclsClient:[INF] [0x560c20f15e50] ProxyDebugLogLevel=5
+2018-10-15 05:15:24:918 00007f5d87aff700 iclsClient:[INF] [0x560c20f15e50] ClientFileLogName=iclsClient.log
+2018-10-15 05:15:24:918 00007f5d87aff700 iclsClient:[INF] [0x560c20f15e50] ClientFileLogLevel=1
+2018-10-15 05:15:24:918 00007f5d87aff700 iclsClient:[INF] [0x560c20f15e50] ClientDebugLogLevel=5
+2018-10-15 05:15:24:918 00007f5d87aff700 iclsClient:Closing config file
+
+2018-10-15 05:15:24:918 00007f5d87aff700 iclsClient:iclsInit: [INF] called with config=0
+2018-10-15 05:15:24:918 00007f5d87aff700 iclsClient:iclsInit: [DBG] Checking if another function utilizing MEI is in progress.
+2018-10-15 05:15:24:918 00007f5d87aff700 iclsClient:iclsInit: [DBG] Lock acquired. Executing function.
+2018-10-15 05:15:24:918 00007f5d87aff700 iclsClient:[INF] [N/A] Creating default config
+2018-10-15 05:15:24:918 00007f5d87aff700 iclsClient:PCIUtilsImpl::GetPCH called.
+2018-10-15 05:15:24:918 00007f5d87aff700 iclsClient:PCIUtilsImpl::GetValueByPCIID called. PciID=&CC_060100, IntelDevice=true.
+2018-10-15 05:15:24:918 00007f5d87aff700 iclsClient:RetrievePCIDevices: Enumerating PCI Devices...
+2018-10-15 05:15:24:918 00007f5d87aff700 iclsClient:RetrievePCIDevices: Processing PCI device: .
+2018-10-15 05:15:24:918 00007f5d87aff700 iclsClient:RetrievePCIDevices: Processing PCI device: ..
+2018-10-15 05:15:24:918 00007f5d87aff700 iclsClient:RetrievePCIDevices: Processing PCI device: 0000:00:00.0
+2018-10-15 05:15:24:918 00007f5d87aff700 iclsClient:RetrievePCIDevices: Processing PCI device: 0000:00:01.0
+2018-10-15 05:15:24:918 00007f5d87aff700 iclsClient:RetrievePCIDevices: Processing PCI device: 0000:00:01.1
+2018-10-15 05:15:24:918 00007f5d87aff700 iclsClient:RetrievePCIDevices: Processing PCI device: 0000:00:02.0
+2018-10-15 05:15:24:918 00007f5d87aff700 iclsClient:RetrievePCIDevices: Processing PCI device: 0000:00:03.0
+2018-10-15 05:15:24:918 00007f5d87aff700 iclsClient:RetrievePCIDevices: Processing PCI device: 0000:00:04.0
+2018-10-15 05:15:24:918 00007f5d87aff700 iclsClient:RetrievePCIDevices: Processing PCI device: 0000:00:05.0
+2018-10-15 05:15:24:919 00007f5d87aff700 iclsClient:RetrievePCIDevices: Processing PCI device: 0000:00:07.0
+2018-10-15 05:15:24:919 00007f5d87aff700 iclsClient:RetrievePCIDevices: Processing PCI device: 0000:00:08.0
+2018-10-15 05:15:24:919 00007f5d87aff700 iclsClient:RetrievePCIDevices: Processing PCI device: 0000:00:14.0
+2018-10-15 05:15:24:919 00007f5d87aff700 iclsClient:PCIUtilsImpl::GetValueByPCIID: Result=7000.
+2018-10-15 05:15:24:919 00007f5d87aff700 iclsClient:PCIUtilsImpl::GetICH called.
+2018-10-15 05:15:24:919 00007f5d87aff700 iclsClient:PCIUtilsImpl::GetValueByPCIID called. PciID=&CC_060100, IntelDevice=true.
+2018-10-15 05:15:24:919 00007f5d87aff700 iclsClient:PCIUtilsImpl::GetValueByPCIID: Result=7000.
+2018-10-15 05:15:24:919 00007f5d87aff700 iclsClient:PCIUtilsImpl::GetMCH called.
+2018-10-15 05:15:24:919 00007f5d87aff700 iclsClient:PCIUtilsImpl::GetValueByPCIID called. PciID=&CC_060000, IntelDevice=true.
+2018-10-15 05:15:24:919 00007f5d87aff700 iclsClient:PCIUtilsImpl::GetValueByPCIID: Result=1237.
+2018-10-15 05:15:24:919 00007f5d87aff700 iclsClient:detect: Detecting platform type based on: MCH=1237, ICH=7000, PCH=7000
+2018-10-15 05:15:24:919 00007f5d87aff700 iclsClient:ConfigMgmt constructor entry
+2018-10-15 05:15:24:919 00007f5d87aff700 iclsClient:[DBG] [0x560c20f19970] Starting reading config file: /opt/Intel/iclsClient//iclsProxy.conf
+2018-10-15 05:15:24:919 00007f5d87aff700 iclsClient:[INF] [0x560c20f19970] IasName=https://ias.intel.com
+2018-10-15 05:15:24:919 00007f5d87aff700 iclsClient:[INF] [0x560c20f19970] IasPortNum=443
+2018-10-15 05:15:24:919 00007f5d87aff700 iclsClient:[INF] [0x560c20f19970] ProxyServer=
+2018-10-15 05:15:24:919 00007f5d87aff700 iclsClient:[INF] [0x560c20f19970] ProxyPort=0
+2018-10-15 05:15:24:919 00007f5d87aff700 iclsClient:[INF] [0x560c20f19970] CaCertFilePath=cacert.pem
+2018-10-15 05:15:24:919 00007f5d87aff700 iclsClient:[INF] [0x560c20f19970] MessageTimeout=15
+2018-10-15 05:15:24:919 00007f5d87aff700 iclsClient:[INF] [0x560c20f19970] ConnectionAttempts=3
+2018-10-15 05:15:24:919 00007f5d87aff700 iclsClient:[INF] [0x560c20f19970] Rpvk=-----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApbEZkucttWPYZyhpNtYwkV5W51IloqndNxMCeb93U2T0sT+T2kUY3rlaCNJLcwjeuR17URu3I9R/c13jY1pWqgg73OM69cYfrN0n08waWuaa03eR/WI7+js7fRm48+9jQe5Gyc/V9PtvM8xxMAv7e1nA6Zt4ZsDFOfpVZwlAy1fKlErudGMYiVFF+/1mEWIAunqeH0Lj8/R4cS9GO90cb51q9H74zb7Pi2GwxF4udtcQDdukQvK9mEn+cnZuNYl8lEdHuruZLoiCmHBHZF0E+GvvlP4T26+Ljx3QvAy1McWSw+my5HTVWUw0bxjdTaJUmtHpthnc1eKvGn4TMq1JCwIDAM5H-----END PUBLIC KEY-----
+2018-10-15 05:15:24:919 00007f5d87aff700 iclsClient:[INF] [0x560c20f19970] ProxyFileLogName=iclsProxy.log
+2018-10-15 05:15:24:919 00007f5d87aff700 iclsClient:[INF] [0x560c20f19970] ProxyFileLogLevel=1
+2018-10-15 05:15:24:919 00007f5d87aff700 iclsClient:[INF] [0x560c20f19970] ProxyDebugLogLevel=5
+2018-10-15 05:15:24:919 00007f5d87aff700 iclsClient:[INF] [0x560c20f19970] ClientFileLogName=iclsClient.log
+2018-10-15 05:15:24:919 00007f5d87aff700 iclsClient:[INF] [0x560c20f19970] ClientFileLogLevel=1
+2018-10-15 05:15:24:919 00007f5d87aff700 iclsClient:[INF] [0x560c20f19970] ClientDebugLogLevel=5
+2018-10-15 05:15:24:919 00007f5d87aff700 iclsClient:Closing config file
+2018-10-15 05:15:24:919 00007f5d87aff700 iclsClient:[INF] [N/A] PCH DID=7000
+2018-10-15 05:15:24:919 00007f5d87aff700 iclsClient:[DBG] [N/A] MCH:ICH / PCH device NOT found on the list of eligible devices.
+2018-10-15 05:15:24:919 00007f5d87aff700 iclsClient:[INF] [N/A] PCH DID=7000
+2018-10-15 05:15:24:919 00007f5d87aff700 iclsClient:[DBG] [N/A] PCH device found on the list of eligible devices.
+2018-10-15 05:15:24:919 00007f5d87aff700 iclsClient:CreateMeiAccess: [INF] [N/A] DETECTED_PLATFORM: 0x07 [BYT]
+2018-10-15 05:15:24:919 00007f5d87aff700 iclsClient:CreateHeciCaller: [DBG] CreatingHeciCaller. Config addr: 94610092285744
+2018-10-15 05:15:24:919 00007f5d87aff700 iclsClient:CreateHeciCaller: [INF] [N/A] Using MalCommandLocal
+2018-10-15 05:15:24:919 00007f5d87aff700 iclsClient:initializeMeiAccessSingleton: [ERR] [N/A] Exception occurred when initializing MeiAccess singleton=Both MEI and HECI device driver's are missing.:
+2018-10-15 05:15:24:919 00007f5d87aff700 iclsClient:iclsInit: [ERR] iclsInit: initializeMeiAccessSingleton returned error. Status: STATUS_ERROR.

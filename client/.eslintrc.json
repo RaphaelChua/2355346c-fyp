@@ -1,0 +1,29 @@
+{
+  "extends": "airbnb",
+  "env": {
+    "browser": true,
+    "jest": true
+  },
+  "parser": "babel-eslint",
+  "rules": {
+    "strict": 0,
+    "import/extensions": ["error", "never"],
+    "import/no-named-as-default-member": "off",
+    "react/prop-types": "off",
+    "react/no-did-mount-set-state": "off",
+    "no-plusplus": "off",
+    "no-param-reassign": "off",
+    "no-unused-vars": ["error", { "argsIgnorePattern": "^_"}],
+    "max-len": ["error", { "code": 150 }],
+    "class-methods-use-this": "off",
+    "eqeqeq": "off",
+    "no-console": "off"
+  },
+  "settings": {
+    "import/resolver": {
+      "webpack": {
+        "config": "webpack.dev.js"
+      }
+    }
+  }
+}

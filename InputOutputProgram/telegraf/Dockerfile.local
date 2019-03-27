@@ -1,0 +1,3 @@
+FROM telegraf:latest
+
+COPY /local/telegraf.conf /etc/telegraf/telegraf.conf

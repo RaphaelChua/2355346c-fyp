@@ -1,0 +1,4 @@
+{
+    "ignore":["services/contracts","contract_address","sample_JSON"],
+    "verbose":true
+}
